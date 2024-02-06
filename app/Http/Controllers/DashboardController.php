@@ -8,6 +8,7 @@ use App\Models\Produk;
 use App\Models\Wallet;
 use App\Models\Kategori;
 use App\Models\Withdraw;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\User;
@@ -30,7 +31,8 @@ class DashboardController extends Controller
         $title = 'Dashboard Kantin';
         $kategoris = Kategori::all();
         $produks = Produk::all();
-        return view('kantin.index', compact('title', 'produks', 'kategoris'));
+        $transaksis = Transaksi::all();
+        return view('kantin.index', compact('title', 'produks', 'kategoris', 'transaksis'));
     }
 
     public function bankIndex()

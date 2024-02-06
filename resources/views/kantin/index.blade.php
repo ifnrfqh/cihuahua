@@ -31,7 +31,7 @@
         <!-- ============================================================== -->
         <div class="row">
             <!-- Column -->
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title"><a class="" href="{{ route('kategori.index') }}" aria-expanded="false"
@@ -48,13 +48,30 @@
             </div>
             <!-- Column -->
             <!-- Column -->
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title"><a class="" href="{{ route('produk.index') }}" aria-expanded="false"
                                 style="color: black">Data Produk</a></h4>
                         <div class="text-end">
                                 <h2 class="font-light mb-0"> {{ count($produks) }}</h2>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: 100%; height: 6px;"
+                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+            <!-- Column -->
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title"><a class="" href="{{ route('kantin.laporan') }}" aria-expanded="false"
+                                style="color: black">Data Transaksi</a></h4>
+                        <div class="text-end">
+                                <h2 class="font-light mb-0"> {{ count($transaksis) }}</h2>
                         </div>
                         <div class="progress">
                             <div class="progress-bar bg-info" role="progressbar" style="width: 100%; height: 6px;"
