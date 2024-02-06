@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Wallet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -54,49 +56,39 @@ class AuthController extends Controller
         }
     }   
 
+    function create(){
+        return view('auth.register');
+    }
+    function register(Request $request){
+        $request->validate(
+            [
+            'nama' => 'required|min:5',
+            'email'=> 'required|unique:users|email',
+            'password' => 'required|min:6',
+            ]
+        );
+
+        $inforegister=[
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'password' => $request->password,
+            'role' => 'customer',
+        ];
+
+        $userRegist = User::create($inforegister);
+        $rek = '55' . auth()->id() . now()->format('YmdHis');
+        $wallet = Wallet::create([
+            'id_user' => $userRegist->id,
+            'rekening' => $rek,
+            'saldo' => 10000,
+            'status' => 'aktif',
+        ]);
+        
+        return redirect()->route('auth')->with('success' , 'Registrasi Berhasil');
+    }
     public function logout()
     {
         Auth::logout();
         return redirect('');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

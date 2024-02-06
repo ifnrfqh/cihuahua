@@ -91,13 +91,6 @@
         <!-- ============================================================== -->
         <!-- End Page Content -->
         <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Right sidebar -->
-        <!-- ============================================================== -->
-        <!-- .right-sidebar -->
-        <!-- ============================================================== -->
-        <!-- End Right sidebar -->
-        <!-- ============================================================== -->
     </div>
     @foreach ($produks as $produk)
         <!-- Modal untuk Edit -->
@@ -157,6 +150,7 @@
             </div>
         </div>
     @endforeach
+
     <!-- Modal untuk Tambah -->
     <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="tambahModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -191,6 +185,7 @@
                                         {{ $kategori->nama_kategori}}
                                     </option>
                                 @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="desc">Deskripsi</label>

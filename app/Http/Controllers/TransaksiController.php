@@ -158,7 +158,7 @@ class TransaksiController extends Controller
 
         $selectedProducts = [];
         foreach ($transaksis as $transaksi) {
-            $produk = Produk::find($transaksi->id_produk);
+            $produk = Produk::withTrashed()->find($transaksi->id_produk);
 
             $selectedProducts[] = [
                 'produk' => $produk,
@@ -202,15 +202,16 @@ class TransaksiController extends Controller
         return view('kantin.laporan.cetak-invoice', compact('transaksis', 'totalHarga', 'title'));
     }
 
-    public function laporanTransaksi($tanggal)
+    public function laporanTransaksi($invoice)
     {
         $title = 'Laporan Transaksi';
 
-        $tanggal = date('Y-m-d', strtotime($tanggal));
+        // $tanggal = date('Y-m-d', strtotime($tanggal));
 
-        $transaksis = Transaksi::whereDate(DB::raw('DATE(tgl_transaksi)'), $tanggal)->get();
+        $transaksis = Transaksi::where('invoice', $invoice)->get();
 
         $totalHarga = $transaksis->sum('total_harga');
+        session(['current_invoice' => $invoice]);
 
         return view('kantin.laporan.transaksi', compact('title', 'transaksis', 'totalHarga', 'title'));
     }

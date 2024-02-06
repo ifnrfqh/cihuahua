@@ -62,7 +62,11 @@
                             </tbody>
                         </table>
                         <div class="text-right mt-3">
-                            <a href="{{ route('kantin.laporan')}}" class="btn btn-danger">Back</a>
+                            <a href="{{ url()->previous()}}" class="btn btn-dark">Back</a>
+                            <button href="#" id="printInvoiceBtn" class="btn btn-dark float-end">Cetak</button>
+                        </div>
+                        <div class="invoice-buttons float-end">
+                            
                         </div>
                     </div>
                 </div>
@@ -80,5 +84,13 @@
     <!-- End Right sidebar -->
     <!-- ============================================================== -->
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var printBtn = document.getElementById('printInvoiceBtn');
 
+        printBtn.addEventListener('click', function() {
+            window.location.href = '{{ route('cetak.transaksi') }}';
+        });
+    });
+</script>
 @endsection

@@ -23,7 +23,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Buat Akun!</h1>
                                     </div>
-                                    <form method="post" action="{{ route('registrasi') }}"
+                                    <form method="post" action="{{ route('regist') }}"
                                         class="login100-form-title p-b-43">
                                         @csrf
                                         <span class="login100-form-title p-b-43">
@@ -37,17 +37,17 @@
                                                 </ul>
                                             </div>
                                         @endif
-                                        @if (Session::get('success'))
+                                        {{-- @if (Session::get('success'))
                                             <div class="alert alert-success alert-dismissible fade show">
                                                 <ul>
                                                     <li>{{ Session::get('success') }}</li>
                                                 </ul>
                                             </div>
-                                        @endif
+                                        @endif --}}
 
                                         <div class="form-group mb-3">
-                                            <input type="text" class="form-control" id="name" name="fullname"
-                                                 placeholder="Nama Lengkap" required>
+                                            <input type="text" class="form-control" id="nama" name="nama"
+                                                 placeholder="Nama" required>
                                         </div>
                                         <div class="form-group mb-3">
                                             <input type="text" class="form-control" id="email" name="email"

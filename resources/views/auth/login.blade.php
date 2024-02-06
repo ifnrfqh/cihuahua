@@ -53,9 +53,9 @@
                                         </button>
                                     </form>
                                     <hr>
-                                    <!-- <div class="text-center">
-                                        <a href="forgot-password.php" class="small">Lupa Password?</a>
-                                    </div> -->
+                                    <div class="text-center">
+                                        Belum Punya Akun? <a href="{{ route('regist')}}" class="small"> Registrasi!</a>
+                                    </div> 
                                     
                                 </div>
                             </div>

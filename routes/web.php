@@ -20,9 +20,10 @@ use App\Http\Controllers\TransaksiController;
 |
 */
 
-// Route::get('/landing', function () {
-//     return view('welcome');
-// });
+
+//Route Registrasi
+Route::get('/registrasi', [AuthController::class, 'create']);
+Route::post('/registrasi', [AuthController::class, 'register'])->name('regist');    
 //Route Authentication                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 Route::get('/', [AuthController::class, 'index'])->name('auth');
 Route::post('/', [AuthController::class, 'login']);
@@ -32,6 +33,9 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 //Topup & Withdraw
 Route::post('/topup', [BankController::class, 'topup'])->name('topup');
 Route::post('/withdrawal', [BankController::class, 'withdrawal'])->name('withdrawal');
+
+//cetak transaksi
+Route::get('/transaksi/cetak', [TransaksiController::class, 'cetakTransaksi'])->name('cetak.transaksi');
 
 
 //Route Admin
@@ -47,7 +51,7 @@ Route::middleware(['auth', 'userAkses:kantin'])->group(function(){
     Route::resource('/kantin/kategori', KategoriController::class);
     Route::get('/kantin/laporan-harian', [TransaksiController::class, 'laporanTransaksiHarian'])->name('kantin.laporan');
     Route::get('/kantin/transaksi/{tanggal}', [TransaksiController::class, 'laporanTransaksi'])->name('transaksi.detail');
-    
+
     Route::get('/kantin/invoice/', [TransaksiController::class, 'laporanTransaksiCetak'])->name('kantin.invoice');
 });
 
@@ -65,12 +69,16 @@ Route::middleware(['auth', 'userAkses:customer'])->group(function(){
     Route::post('/customer/checkout', [TransaksiController::class, 'checkout'])->name('checkout');
     Route::delete('/customer/keranjang/destroy/{id}', [TransaksiController::class, 'keranjangDestroy'])->name('keranjang.destroy');
     // Route::get('/customer/cetakStruk', [TransaksiController::class, 'cetakTransaksi'])->name('cetak.struk');
-    Route::get('/customer/cetak', [TransaksiController::class, 'cetakTransaksi'])->name('cetak.transaksi');
+    
     // riwayat
     Route::get('/customer/riwayat/transaksi', [TransaksiController::class, 'riwayatTransaksi'])->name('customer.riwayat.transaksi');
     Route::get('/customer/riwayat/transaksi/{invoice}', [TransaksiController::class, 'detailRiwayatTransaksi'])->name('customer.transaksi.detail');
     Route::get('/customer/riwayat/topup', [BankController::class, 'riwayatTopup'])->name('customer.riwayat.topup');
     Route::get('/customer/riwayat/withdrawal', [BankController::class, 'riwayatWithdrawal'])->name('customer.riwayat.withdrawal');
+    Route::get('/laporan/topup/{tanggal}', [BankController::class, 'cetakTopUp'])->name('cetak.topup');
+    Route::get('/laporan/withdrawal/{tanggal}', [BankController::class, 'cetakWithdrawal'])->name('cetak.withdrawal');
+    Route::get('/laporan/topupAll', [BankController::class, 'cetakTopupAll'])->name('cetak.topup.all');
+    Route::get('/laporan/withdrawalAll', [BankController::class, 'cetakWithdrawalAll'])->name('cetak.withdrawal.all');
 });
 
 //Route Bank
