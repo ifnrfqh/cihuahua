@@ -187,6 +187,20 @@ class TransaksiController extends Controller
 
         return view('kantin.laporan.transaksi_harian', compact('transaksis', 'totalHarga', 'title'));
     }
+    public function laporanTransaksiCetak()
+    {
+        $title = 'Laporan Transaksi Harian';
+
+        // $today = now()->toDateString();
+        $transaksis = Transaksi::select(DB::raw('DATE(tgl_transaksi) as tanggal'), DB::raw('SUM(total_harga) as total_harga'))
+        ->groupBy('tanggal')
+        ->orderBy('tanggal', 'desc')
+        ->get();
+
+        $totalHarga = $transaksis->sum('total_harga');
+
+        return view('kantin.laporan.cetak-invoice', compact('transaksis', 'totalHarga', 'title'));
+    }
 
     public function laporanTransaksi($tanggal)
     {
@@ -200,7 +214,6 @@ class TransaksiController extends Controller
 
         return view('kantin.laporan.transaksi', compact('title', 'transaksis', 'totalHarga', 'title'));
     }
-
     
     public function riwayatTransaksi()
     {
@@ -216,6 +229,7 @@ class TransaksiController extends Controller
 
         return view('customer.riwayat.transaksi', compact('title', 'transaksis', 'totalHarga'));
     }
+    
     public function detailRiwayatTransaksi($invoice)
     {
         $title = 'Detail Pembelian';
@@ -226,7 +240,6 @@ class TransaksiController extends Controller
 
         return view('customer.invoice', compact('title', 'selectedProducts', 'totalHarga', 'invoice'));
     }
-
 }
 
     

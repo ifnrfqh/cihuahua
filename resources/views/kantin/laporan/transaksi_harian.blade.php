@@ -33,14 +33,14 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Data Kategori</h4>
+                    <h4 class="card-title">Transaksi Harian</h4>
                     <div class="table-responsive">
                         <table class="table user-table no-wrap">
                             <thead>
                                 <tr>
                                     <th class="border-top-0">#</th>
                                     <th class="border-top-0">Tanggal</th>
-                                    <th class="border-top-0">Total Harga</th>
+                                    <th class="border-top-0">Total Pemasukan</th>
                                     <th class="border-top-0">Aksi</th>
                                 </tr>
                             </thead>
@@ -57,6 +57,9 @@
                                         @endforeach
                             </tbody>
                         </table>
+                        <div class="invoice-buttons text-right">
+                            <a type="button" class="btn btn-success" id="printInvoiceBtn">Print</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -73,4 +76,13 @@
     <!-- End Right sidebar -->
     <!-- ============================================================== -->
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var printBtn = document.getElementById('printInvoiceBtn');
+
+        printBtn.addEventListener('click', function() {
+            window.location.href = '{{ route('kantin.invoice') }}';
+        });
+    });
+</script>
 @endsection

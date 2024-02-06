@@ -31,30 +31,32 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title" style="text-align: center;">Riwayat Top Up</h4>
-                    
+                    <h4 class="card-title">Data Transaksi</h4>
                     <div class="list-group list-group-flush">
-                        @foreach( $topups as $topup )
-                            <h6 class="bg-body-tertary p-2 border-top border-bottom">{{ $topup->tanggal}}
-                                <span class="float-end">Rp. {{number_format($topup->nominal,0,',','.')}}</span>
+                        @foreach($transaksis as $transaksi)
+                            <h6 class="bg-body-tertary p-2 border-top border-bottom">{{ $transaksi->tanggal}}
                             </h6>
                             @php
-                                $topupList = App\Models\TopUp::where(DB::raw('DATE(created_at)'), $topup->tanggal)
-                                // ->where('rekening', $wallet->rekening)
-                                ->orderBy('created_at', 'desc')
+                                $transaksiList = App\Models\Transaksi::select('invoice', 'tgl_transaksi')
+                                ->where(DB::raw('DATE(tgl_transaksi)'), $transaksi->tanggal)
+                                ->where('id_user', auth()->id())
+                                ->groupBy('invoice', 'tgl_transaksi')
                                 ->get();
                             @endphp
 
                             <ul class="list-group list-group-light mb-4">
-                                @foreach ($topupList as $list)
-                                    <a href="{{ route('topup.detail', $topup->tanggal)}}">
+                                @foreach ($transaksiList as $list)
+                                    @php
+                                      $totalHarga = App\Models\Transaksi::where('invoice', $list->invoice)->sum('total_harga');  
+                                    @endphp
+                                    <a href="{{ route('kantin.laporan.cetak-invoice', $list->invoice)}}">
                                         <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                             <div class="d-flex align-items-center col-12">
                                                 <div class="ms-3 col-12">
-                                                    <p class="fw-bold mb-1 me-3">{{ $list->kode_unik}}<span class="float-end">{{ $list->created_at}}</span>
+                                                    <p class="fw-bold mb-1 me-3">{{ $list->invoice}}<span class="float-end">{{ $list->tgl_transaksi}}</span>
                                                     </p>
                                                     <p class="text-muted mb-0">Rp.
-                                                        {{ number_format($list->nominal, 2, ',', '.')}}
+                                                        {{ number_format($totalHarga, 2, ',', '.')}}
                                                     </p>
                                                 </div>
                                             </div>
@@ -63,9 +65,6 @@
                                 @endforeach
                             </ul>
                         @endforeach
-                        <span class="ps-2">
-                            <a href="{{ route('topup.cetak')}}" class="btn btn-success">Print</a>
-                        </span>
                     </div>
                 </div>
             </div>

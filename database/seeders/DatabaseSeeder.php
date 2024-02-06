@@ -52,13 +52,21 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'remember_token' => Str::Random(10),
         ],
+        [
+            'nama' => 'riski',
+            'email' => 'riski@gmail.com',
+            'role' => 'customer',
+            'password' => bcrypt('riski'),
+            'email_verified_at' => now(),
+            'remember_token' => Str::Random(10),
+        ],
     ];
 
     foreach ($dataUser as $key => $val) {
         User::create($val);
     }
 
-    // Kategori Seeder
+    //Kategori Seeder
 
     $dataKategori = [
         [
@@ -122,6 +130,12 @@ class DatabaseSeeder extends Seeder
         [
             'rekening' => '552134578867',
             'id_user' => 4,
+            'saldo' => 100000,
+            'status' => 'aktif',
+        ],
+        [
+            'rekening' => '554500669872',
+            'id_user' => 5,
             'saldo' => 100000,
             'status' => 'aktif',
         ],

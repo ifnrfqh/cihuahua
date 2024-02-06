@@ -49,15 +49,24 @@ class BankController extends Controller
             'rekening' => 'required|string|exists:wallets,rekening',
         ]);
 
+        if(auth()->user()->role === 'bank'){
+            $status = 'dikonfirmasi';
+            $wallet = Wallet::where('rekening', $request->rekening)->first();
+            $wallet->saldo += $request->nominal;
+            $wallet->save();
+        }else{
+            $status = 'menunggu';
+        }
+
         $kodeUnik = "TOP" . auth()->user()->id . now()->format('dmYHis');
         $topup = TopUp::create([
             'rekening' => $request->rekening,
             'nominal' => $request->nominal,
             'kode_unik' => $kodeUnik,
-            'status' => 'menunggu',
+            'status' => $status,
         ]);
 
-        return redirect()->route('customer.index')->with('success', 'Permintaan Top Up berhasil');
+        return redirect()->back()->with('success', 'Permintaan Top Up berhasil');
     }
 
     /**
@@ -101,18 +110,26 @@ class BankController extends Controller
         if ($wallet->saldo < $request->nominal) {
             return redirect()->back()->with('error', 'Saldo tidak mencukupi.');
         }
+        if(auth()->user()->role === 'bank'){
+            $status = 'dikonfirmasi';
+            $wallet = Wallet::where('rekening', $request->rekening)->first();
+            $wallet->saldo -= $request->nominal;
+            $wallet->save();
+        }else{
+            $status = 'menunggu';
+        }
 
         $kodeUnik = "WD" . auth()->user()->id . now()->format('dmYHis');
         $withdrawal = Withdraw::create([
             'rekening' => $request->rekening,
             'nominal' => $request->nominal,
             'kode_unik' => $kodeUnik,
-            'status' => 'menunggu',
+            'status' => $status,
         ]);
 
 
 
-        return redirect()->route('customer.index')->with('success', 'Permintaan Withdrawal berhasil');
+        return redirect()->back()->with('success', 'Permintaan Withdrawal berhasil');
     }
 
     public function konfirmasiWithdrawal($id)
@@ -152,6 +169,19 @@ class BankController extends Controller
 
         return view('bank.laporan.topup-harian', compact('topups', 'totalNominal', 'title'));
     }
+    public function printLaporan()
+    {
+        $title = 'Laporan Top Up Harian';
+
+        // $today = now()->toDateString();
+        $topups = TopUp::select(DB::raw('DATE(created_at) as tanggal'), DB::raw('SUM(nominal) as nominal'))
+        ->groupBy('tanggal')
+        ->orderBy('tanggal', 'desc')
+        ->get();
+        $totalNominal = $topups->sum('nominal');
+
+        return view('bank.laporan.topup-cetak', compact('topups', 'totalNominal', 'title'));
+    }
 
     public function laporanTopup($tanggal)
     {
@@ -176,6 +206,19 @@ class BankController extends Controller
         $totalNominal = $withdrawals->sum('nominal');
 
         return view('bank.laporan.withdrawal-harian', compact('withdrawals', 'totalNominal', 'title'));
+    }
+    public function printWithdrawal()
+    {
+        $title = 'Laporan Withdrawal Harian';
+
+        // $today = now()->toDateString();
+        $withdrawals = Withdraw::select(DB::raw('DATE(created_at) as tanggal'), DB::raw('SUM(nominal) as nominal'))
+        ->groupBy('tanggal')
+        ->orderBy('tanggal', 'desc')
+        ->get();
+        $totalNominal = $withdrawals->sum('nominal');
+
+        return view('bank.laporan.withdrawal-cetak', compact('withdrawals', 'totalNominal', 'title'));
     }
 
     public function laporanWithdrawal($tanggal)

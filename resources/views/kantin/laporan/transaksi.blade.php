@@ -33,7 +33,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Data Kategori</h4>
+                    <h4 class="card-title">Detail Transaksi</h4>
                     <div class="table-responsive">
                         <table class="table user-table no-wrap">
                             <thead>
@@ -80,4 +80,5 @@
     <!-- End Right sidebar -->
     <!-- ============================================================== -->
 </div>
+
 @endsection

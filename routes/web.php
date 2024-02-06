@@ -29,6 +29,10 @@ Route::post('/', [AuthController::class, 'login']);
 //Logout
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
+//Topup & Withdraw
+Route::post('/topup', [BankController::class, 'topup'])->name('topup');
+Route::post('/withdrawal', [BankController::class, 'withdrawal'])->name('withdrawal');
+
 
 //Route Admin
 Route::middleware(['auth', 'userAkses:admin'])->group(function(){
@@ -42,7 +46,10 @@ Route::middleware(['auth', 'userAkses:kantin'])->group(function(){
     Route::resource('/kantin/produk', ProdukController::class);
     Route::resource('/kantin/kategori', KategoriController::class);
     Route::get('/kantin/laporan-harian', [TransaksiController::class, 'laporanTransaksiHarian'])->name('kantin.laporan');
-    Route::get('/customer/transaksi/{tanggal}', [TransaksiController::class, 'laporanTransaksi'])->name('transaksi.detail');
+    Route::get('/kantin/transaksi/{tanggal}', [TransaksiController::class, 'laporanTransaksi'])->name('transaksi.detail');
+
+    Route::get('/kantin/invoice/', [TransaksiController::class, 'laporanTransaksiCetak'])->name('kantin.invoice');
+    // Route::get('/kantin/invoice/{invoice}', [TransaksiController::class, 'detailRiwayatTransaksiKantin'])->name('kantin.invoice.detail');
 });
 
 //Route Customer
@@ -58,7 +65,8 @@ Route::middleware(['auth', 'userAkses:customer'])->group(function(){
     Route::get('/customer/keranjang', [TransaksiController::class, 'keranjangIndex'])->name('customer.keranjang');
     Route::post('/customer/checkout', [TransaksiController::class, 'checkout'])->name('checkout');
     Route::delete('/customer/keranjang/destroy/{id}', [TransaksiController::class, 'keranjangDestroy'])->name('keranjang.destroy');
-    Route::get('/customer/transaksi/cetak', [TransaksiController::class, 'cetakTransaksi'])->name('cetak.transaksi');
+    // Route::get('/customer/cetakStruk', [TransaksiController::class, 'cetakTransaksi'])->name('cetak.struk');
+    Route::get('/customer/cetak', [TransaksiController::class, 'cetakTransaksi'])->name('cetak.transaksi');
     // riwayat
     Route::get('/customer/riwayat/transaksi', [TransaksiController::class, 'riwayatTransaksi'])->name('customer.riwayat.transaksi');
     Route::get('/customer/riwayat/transaksi/{invoice}', [TransaksiController::class, 'detailRiwayatTransaksi'])->name('customer.transaksi.detail');
@@ -82,7 +90,10 @@ Route::middleware(['auth', 'userAkses:bank'])->group(function(){
 
     //Laporan
     Route::get('/bank/laporan-withdrawal', [BankController::class, 'laporanWithdrawalHarian'])->name('withdrawal.harian');
+    Route::get('/bank/withdrawal/cetak', [BankController::class, 'printWithdrawal'])->name('withdrawal.cetak');
     Route::get('/bank/laporan-withdrawal/{tanggal}', [BankController::class, 'laporanWithdrawal'])->name('withdrawal.detail');
     Route::get('/bank/laporan-topup', [BankController::class, 'laporanTopupHarian'])->name('topup.harian');
+    Route::get('/bank/topup/cetak', [BankController::class, 'printLaporan'])->name('topup.cetak');
     Route::get('/bank/laporan-topup/{tanggal}', [BankController::class, 'laporanTopup'])->name('topup.detail');
+
 });

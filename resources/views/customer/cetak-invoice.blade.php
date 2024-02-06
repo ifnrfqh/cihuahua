@@ -75,8 +75,8 @@
                             </table>
                         </div>
                     </div>
+                    <div class="fixed-bottom">
                     <hr class="mt-5" />
-                    <div class="row">
                         <div class="col-12 text-center">
                             <p>Terimakasih telah berbelanja di Kantin64!!!</p>
                         </div>

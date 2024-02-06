@@ -45,7 +45,7 @@
                         </div>
                         <div class="float-right">
                             <button class="btn btn-light my-3 mr-3" data-bs-toggle="modal" data-bs-target="#topupModal">Top Up</button>
-                            <button class="btn btn-light my-3 mr-3" data-bs-toggle="modal" data-bs-target="#tariktunaiModal">Tarik Tunai</button>
+                            {{-- <button class="btn btn-light my-3 mr-3" data-bs-toggle="modal" data-bs-target="#tariktunaiModal">Tarik Tunai</button> --}}
                         </div>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="tariktunaiModal" tabindex="-1" role="dialog" aria-labelledby="tariktunaiModalLabel"
+    {{-- <div class="modal fade" id="tariktunaiModal" tabindex="-1" role="dialog" aria-labelledby="tariktunaiModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -135,6 +135,6 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
     
 @endsection

@@ -76,7 +76,7 @@
                         </div>
                     </div>
                     <div class="invoice-buttons text-right">
-                        <button type="submit" id="printInvoiceBtn" class="btn btn-primary col-2">Cetak Invoice</button>
+                        <a type="button" class="btn btn-primary col-2" id="printInvoiceBtn">Print</a>
                     </div>
                 </div>
             </div>
