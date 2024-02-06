@@ -43,6 +43,9 @@
                             <div class="progress-bar bg-success" role="progressbar" style="width: 100%; height: 6px;"
                             aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
+                        <div class="rekening">
+                            <a>Rekening : <span class="float-end">{{$wallets->rekening}}</span></a>
+                        </div>
                         <div class="float-right">
                             <button class="btn btn-light my-3 mr-3" data-bs-toggle="modal" data-bs-target="#topupModal">Top Up</button>
                             {{-- <button class="btn btn-light my-3 mr-3" data-bs-toggle="modal" data-bs-target="#tariktunaiModal">Tarik Tunai</button> --}}

@@ -27,7 +27,7 @@
     <!-- ============================================================== -->
     <div class="container-fluid">
         <!-- ============================================================== -->
-        <!-- Sales chart -->
+        <!-- Content -->
         <!-- ============================================================== -->
         <div class="row">
             <!-- Isiiiii -->
@@ -100,18 +100,12 @@
                 </div>
             </div>
         </div>
-
-        <!-- ============================================================== -->
-        <!-- Table -->
-        <!-- ============================================================== -->
-
-        <!-- ============================================================== -->
-        <!-- Table -->
-        <!-- ============================================================== -->
     </div>
     <!-- ============================================================== -->
     <!-- End Container fluid  -->
     <!-- ============================================================== -->
+
+    {{-- TopUp Modal --}}
     <div class="modal fade" id="topupModal" tabindex="-1" role="dialog" aria-labelledby="topupModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -154,43 +148,3 @@
     </div>
     </div>
 @endsection
-{{-- <div class="modal fade" id="topupModal" tabindex="-1" role="dialog" aria-labelledby="topupModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="topupModalLabel">Top Up</h4>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">
-                        <span>&times;</span>
-                    </button>
-                </div>
-                <form action="{{ route('topup.request') }}" method="post">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="rekening">Rekening</label>
-                            <input id="rekening" name="rekening" type="text" placeholder="" class="form-control"
-                                required value="{{ $wallets->rekening }}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="nominal">Nominal</label>
-                            <input type="text" id="nominal" class="form-control" placeholder="" name="nominal"
-                                required>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                            <i class="bx bx-x d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Batal</span>
-                        </button>
-                        <button type="submit" class="btn btn-primary ms-1">
-                            <i class="bx bx-check d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Top Up</span>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div> --}}

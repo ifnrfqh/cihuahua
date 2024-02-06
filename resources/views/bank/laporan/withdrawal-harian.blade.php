@@ -1,7 +1,5 @@
 @extends('layout.main')
-
 @section('content')
-    
 
 <div class="page-breadcrumb">
     <div class="row align-items-center">
@@ -24,7 +22,7 @@
 <!-- ============================================================== -->
 <div class="container-fluid">
     <!-- ============================================================== -->
-    <!-- Start Page Content -->
+    <!-- Start Content -->
     <!-- ============================================================== -->
     <div class="row">
         <!-- column -->
@@ -39,7 +37,6 @@
                             </h6>
                             @php
                                 $withdrawalList = App\Models\Withdraw::where(DB::raw('DATE(created_at)'), $withdraw->tanggal)
-                                // ->where('rekening', $wallet->rekening)
                                 ->orderBy('created_at', 'desc')
                                 ->get();
                             @endphp
@@ -70,5 +67,11 @@
             </div>
         </div>
     </div>
+    <!-- ============================================================== -->
+    <!-- End Content -->
+    <!-- ============================================================== -->
 </div>
+<!-- ============================================================== -->
+<!-- End Container fluid  -->
+<!-- ============================================================== -->
 @endsection

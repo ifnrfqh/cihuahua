@@ -47,9 +47,8 @@ Route::middleware(['auth', 'userAkses:kantin'])->group(function(){
     Route::resource('/kantin/kategori', KategoriController::class);
     Route::get('/kantin/laporan-harian', [TransaksiController::class, 'laporanTransaksiHarian'])->name('kantin.laporan');
     Route::get('/kantin/transaksi/{tanggal}', [TransaksiController::class, 'laporanTransaksi'])->name('transaksi.detail');
-
+    
     Route::get('/kantin/invoice/', [TransaksiController::class, 'laporanTransaksiCetak'])->name('kantin.invoice');
-    // Route::get('/kantin/invoice/{invoice}', [TransaksiController::class, 'detailRiwayatTransaksiKantin'])->name('kantin.invoice.detail');
 });
 
 //Route Customer
